@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * 新サービス情報を提供するinformation.xml
+ *
+ * @author rutoru
+ * @package Twilio-MiniCC
+-->
+<Response>
+    <Say voice="alice" language="ja-JP">
+        お電話ありがとうございました。
+        ただいま、新サービスリリース検討中です。
+        もうしばらくお待ちくださいね。
+    </Say>
+</Response>
