@@ -56,8 +56,8 @@ class Database {
     /**
      * 検索結果行数取得
      * 
-     * @param string $var サニタイジング対象文字列
-     * @return サイニタイジング後の文字列
+     * @param string $query SQL文（SELECT）
+     * @return 結果行数
     */
     function queryRowsMysql($query)
     {
