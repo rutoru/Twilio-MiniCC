@@ -63,6 +63,7 @@ TwilioはApacheのBasic認証に対応しています。Twilio-MiniCCを設置�
 ライセンス
 ----------
 Copyright &copy; 2014 rutoru
-Licensed under [MIT license][MIT].
+Licensed under [MIT license][MIT].    
+https://github.com/rutoru/Twilio-MiniCC/blob/master/LICENSE
  
 [MIT]: http://www.opensource.org/licenses/mit-license.php
