@@ -1,83 +1,59 @@
 <?php
 /**
- * Databaseクラス
+ * Database Class(Create PDO Object)
+ * データベース接続のためのPDOオブジェクトを作成
  *
  * @author rutoru
  * @package Twilio-MiniCC
+ * @GitHub  https://github.com/rutoru/Twilio-MiniCC
  */
 class Database {
 
     /**
-     * DB接続用定数
+     * Constants for Enqueue Action
     */
-    const DBHOST = "";
+    const DBHOST = "localhost";
     const DBNAME = "";
     const DBUSER = "";
-    const DBPASS = "";
+    const DBPASS = "";    
     
     /**
-     * オブジェクト変数
+     * Object Variables
     */
-    private $mysqli;    // mysqliオブジェクトが格納
+    private $pdo;
 
     /**
-     * コンストラクタ（mysqliオブジェクトを作成）
+     * Constructor (Create POD Object)
      * 
     */
     public function __construct()
     {
-        $this->mysqli = new mysqli(self::DBHOST, self::DBUSER, self::DBPASS, self::DBNAME);
-        if ($this->mysqli->connect_errno) {
-           echo "Failed to connect to MySQL: (" . $this->mysqli->connect_errno . ") " . $this->mysqli->connect_error;
-        }
-                
-    }
-
-    /**
-     * デストラクタ（DB接続クローズ）
-     * 
-    */
-    public function __destruct()
-    {
         
-        $this->mysqli->close();
-    
+        // Create PDO Object
+        $this->pdo = 
+                new PDO(
+                    "mysql:dbname=".self::DBNAME.";host=".self::DBHOST.";charset=utf8",
+                    self::DBUSER,
+                    self::DBPASS,
+                    array(
+                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                        PDO::ATTR_EMULATE_PREPARES => false,
+                        PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
+                    )
+                );
     }
-
+    
     /**
-     * DB接続クローズ
+     * Getter - Return PDO Object
+     * 
+     * @return PDO Object
      * 
     */
-    public function close()
+    public function getPdo()
     {
-        $this->mysqli->close();
-    }
     
-    /**
-     * 検索結果行数取得
-     * 
-     * @param string $query SQL文（SELECT）
-     * @return 結果行数
-    */
-    function queryRowsMysql($query)
-    {
-
-        $result = $this->mysqli->query($query)->num_rows;
-        return $result;
+        return $this->pdo;
+        
     }
 
-    /**
-     * サニタイジング
-     *
-     * @param string $var filter_input後のサニタイジング対象文字列
-     * @return サイニタイジング後の文字列
-    */
-    function sanitizeString($var)
-    {
-        // filter_inputされている前提のため、以下コメントアウト
-        // $var = strip_tags($var);
-        $var = htmlentities($var);
-        $var = stripslashes($var);
-        return $this->mysqli->real_escape_string($var);
-    }
 }
